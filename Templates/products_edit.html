@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{%block title%}Edit Product{%endblock%}
+{%block header%}
+<div class="ui container">
+	<h2>Products</h2>
+</div>
+{%endblock%}
+{%block body%}
+<div class="ui container">
+	<form method="POST" class="ui form">
+		<div class="inline field">
+			{% for id,name in products %}
+				<label>Product Name</label>
+				<input required type="text" autofocus value={{name}} name="product_name">
+			{% endfor %}
+		</div>
+		<button class="ui green button">Save</button>
+		<a href="{{url_for('products_delete',product_id=product_id)}}" class="ui red button">Delete</a>
+		<a href="{{url_for('products')}}" class="ui blue button">Back</a>
+	</form>
+</div>
+{%endblock%}

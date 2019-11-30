@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{%block title%}Report{%endblock%}
+{%block header%}
+<div class="ui container">
+	<h2>Report</h2>
+</div>
+{%endblock%}
+{%block body%}
+<div class="ui grid container">
+	{# create column for every location first #}
+	{# then for each product find its quantity for the location #}
+	{% for id,name in locations%}
+		<div class="four wide column">
+			<div class="ui segment">
+				<h3>{{name}}</h3>
+				<table class="ui single line table">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Qunatity</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for pid,pname in products %}
+							<tr>
+								<td>{{pname}}</td>
+								<td>{{qty_at_loc(pid,name)}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+{%endblock%}

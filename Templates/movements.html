@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{%block title%}Product Movement{%endblock%}
+{%block header%}
+<div class="ui container">
+	<h2>Product Movement</h2>
+</div>
+{%endblock%}
+{%block body%}
+<div class="ui container">
+	<form class="ui form" method="POST">
+		<div class="equal width fields">
+			<div class="field">
+				<label>Product</label>
+				<select autofocus name="product_id">
+					{% for id,name in products%}
+					<option value="{{id}}">{{name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="field">
+				<label>From</label>
+				<select name="from_location">
+					<option value="">From</option>
+					{% for id,name in locations%}
+					<option value="{{name}}">{{name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="equal width fields">
+			<div class="field">
+				<label>To</label>
+				<select name="to_location">
+					<option value="">To</option>
+					{% for id,name in locations%}
+					<option value="{{name}}">{{name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="field">
+				<label>Quantity</label>
+				<input name="qty">
+			</div>
+		</div>
+		<button class="ui green button">Save</button>
+	</form>
+</div>
+<hr>
+<div class="ui grid container">
+	{# create column for every location first #}
+	{# then for each product find its quantity for the location #}
+	{% for id,name in locations%}
+		<div class="four wide column">
+			<div class="ui segment">
+				<h3>{{name}}</h3>
+				<table class="ui single line table">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Qunatity</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for pid,pname in products %}
+							<tr>
+								<td>{{pname}}</td>
+								<td>{{qty_at_loc(pid,name)}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+<hr>
+<div class="ui container">
+	<table class="ui single line table">
+		<thead>
+			<tr>
+				<th>Timestamp</th>
+				<th>From</th>
+				<th>To</th>
+				<th>Product</th>
+				<th>Quantity</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for id,timestamp,from,to,pid,qty in movements %}
+				<tr>
+					<td>{{timestamp}}</td>
+					<td>{{from}}</td>
+					<td>{{to}}</td>
+					<td>{{dict(products)[pid]}}</td>
+					<td>{{qty}}</td>
+					<td><a href="{{url_for('movements_edit',movement_id=id)}}" class="ui blue button">Edit</a></td>
+					<td><a href="{{url_for('movements_delete',movement_id=id)}}" class="ui red button">Delete</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{%endblock%}

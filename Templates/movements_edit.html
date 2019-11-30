@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{%block title%}Edit Movement{%endblock%}
+{%block header%}
+<div class="ui container">
+	<h2>Locations</h2>
+</div>
+{%endblock%}
+{%block body%}
+<div class="ui container">
+	<form class="ui form" method="POST">
+		{% for mid,_,from,to,pid,qty in movements %}
+			<div class="equal width fields">
+				<div class="field">
+					<label>Product</label>
+					<select name="product_id">
+						{% for id,name in products%}
+							{% if id==pid %}
+								<option selected value="{{id}}">{{name}}</option>
+							{%else%}
+								<option value="{{id}}">{{name}}</option>
+							{%endif%}
+						{% endfor %}
+					</select>
+				</div>
+				<div class="field">
+					<label>From</label>
+					<select name="from_location">
+						<option value="">From</option>
+						{% for id,name in locations%}
+							{% if name==from %}
+								<option selected value="{{name}}">{{name}}</option>
+							{%else%}
+								<option value="{{name}}">{{name}}</option>
+							{%endif%}
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="equal width fields">
+				<div class="field">
+					<label>To</label>
+					<select name="to_location">
+						<option value="">To</option>
+						{% for id,name in locations%}
+							{% if name==to %}
+								<option selected value="{{name}}">{{name}}</option>
+							{%else%}
+								<option value="{{name}}">{{name}}</option>
+							{%endif%}
+						{% endfor %}
+					</select>
+				</div>
+				<div class="field">
+					<label>Quantity</label>
+					<input value="{{qty}}" name="qty">
+				</div>
+			</div>
+			<button class="ui green button">Save</button>
+			<a href="{{url_for('movements')}}" class="ui blue button">Back</a>
+		{% endfor %}
+	</form>
+</div>
+{%endblock%}

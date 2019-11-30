@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{%block title%}Locations{%endblock%}
+{%block header%}
+<div class="ui container">
+	<a href="{{url_for('locations_add')}}" class="ui right floated button">Add +</a>
+	<h2>Locations</h2>
+</div>
+{%endblock%}
+{%block body%}
+<table class="ui single line table">
+	<thead>
+		<tr>
+			<th class="fourteen wide">Product Name</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for id,name in locations %}
+		<tr>
+			<td>{{name}}</td>
+			<td><a href="{{url_for('locations_edit',location_id=id)}}" class="ui blue button">Edit</a></td>
+			<td><a href="{{url_for('locations_view',location_id=id)}}" class="ui green button">View</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{%endblock%}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{%block title%}Edit Location{%endblock%}
+{%block header%}
+<div class="ui container">
+	<h2>Locations</h2>
+</div>
+{%endblock%}
+{%block body%}
+<div class="ui container">
+	<form method="POST" class="ui form">
+		<div class="inline field">
+			{% for id,name in locations %}
+				<label>Location Name</label>
+				<input required type="text" autofocus value={{name}} name="location_name">
+			{% endfor %}
+		</div>
+		<button class="ui green button">Save</button>
+		<a href="{{url_for('locations_delete',location_id=location_id)}}" class="ui red button">Delete</a>
+		<a href="{{url_for('locations')}}" class="ui blue button">Back</a>
+	</form>
+</div>
+{%endblock%}

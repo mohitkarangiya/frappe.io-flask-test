@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{%block title%}Product Details{%endblock%}
+{%block header%}
+<div class="ui container">
+	<a href="{{url_for('products')}}" class="ui right floated blue button">All Products</a>
+
+	<h2>Products</h2>
+</div>
+{%endblock%}
+{%block body%}
+<div class="ui container">
+	{% if error %}
+	<p>{{error}}</p>
+	{% endif %}
+
+	{% for id,name in products %}
+	<p>product_id - {{id}}</p>
+	<p>product_name - {{name}}</p>
+	{% endfor %}
+
+</div>
+{%endblock%}

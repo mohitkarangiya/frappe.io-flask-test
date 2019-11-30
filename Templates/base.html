@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{%block title%}{%endblock%}</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+</head>
+<body>
+	<div class="ui container">
+		<div class="ui fluid buttons">
+			<a class="ui button" href="{{url_for('products')}}">
+					Products
+			</a>
+			<a class="ui button" href="{{url_for('locations')}}">
+					Locations
+			</a>
+			<a class="ui button" href="{{url_for('movements')}}">
+					Movements
+			</a>
+			<a class="ui button" href="{{url_for('reports')}}">
+					Reports
+			</a>
+		</div>
+	</div>
+	{%block header%}
+	{%endblock%}
+	<div class="ui container"><hr></div>
+	<div class="ui container">
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	{% for category,message in messages %}
+	<div class="ui message {{category}}">
+		<i class="close icon"></i>
+		<div class="header">
+			{{ message }}
+		</div>
+	</div>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+	{%block body%}
+	{%endblock%}
+</body>
+<script
+src="https://code.jquery.com/jquery-3.1.1.min.js"
+integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+	$('.message .close').on('click', function() {$(this).closest('.message').transition('fade');});
+</script>
+</html>

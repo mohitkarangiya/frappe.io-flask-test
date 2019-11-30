@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{%block title%}Location Details{%endblock%}
+{%block header%}
+<div class="ui container">
+	<a href="{{url_for('locations')}}" class="ui right floated blue button">All Locations</a>
+
+	<h2>locations</h2>
+</div>
+{%endblock%}
+{%block body%}
+<div class="ui container">
+	{% if error %}
+	<p>{{error}}</p>
+	{% endif %}
+
+	{% for id,name in locations %}
+	<p>location_id - {{id}}</p>
+	<p>location_name - {{name}}</p>
+	{% endfor %}
+
+</div>
+{%endblock%}
